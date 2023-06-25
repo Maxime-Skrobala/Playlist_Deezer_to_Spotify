@@ -35,7 +35,8 @@ for playlist in playlist_user:
     sp_playlist= sp.user_playlist_create(user=user_id,name=playlist.title,public=True,collaborative=False, description="")
     
     for tracks in tracks_play:
-        result = sp.search(tracks.title,limit=1)
+        track_artist=(tracks.get_artist()).name
+        result = sp.search(tracks.title + " " + track_artist,limit=1)
         track_id = result["tracks"]["items"][0]["id"]
         sp.user_playlist_add_tracks(user=user_id, playlist_id=sp_playlist["id"], tracks=[track_id], position=None)
         liste_track.append(tracks.title)
